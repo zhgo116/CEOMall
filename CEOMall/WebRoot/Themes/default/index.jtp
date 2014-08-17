@@ -1,0 +1,13 @@
+Hello EasyCMS<br/>
+<a href="login.html">Login</a><br/>
+<a href="islogin.shtml">islogin</a><br/>
+<a href="edit.shtml">edit</a><br/>
+<@bean ref="testService" fun="t3" params="10,1555.5,&testService" ;result>
+	${result!}
+</@bean>
+
+<br/>
+<@bind name="tom" value="{\"name\":\"Tom\",\"age\":66}" scope="request" class="com.easycms.cms.web.freemarker.tags.A" >
+	session:${tom.name}</br>
+</@bind>
+
