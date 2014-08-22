@@ -1,0 +1,12 @@
+<a href="./">HOME</a><br/>
+<@bean ref="articleService" fun="queryArticle" params="&id";item>
+	${item.article_id!}<br />
+	${item.title!}<br />
+	${item.author!}<br />
+	${item.author_email!}<br />
+	${item.article_time!}<br />
+	${item.cat_id!}<br />
+	${item.article_state!}<br />
+	${item.article_desc!}<br />
+	${item.content!}<br />
+</@bean>

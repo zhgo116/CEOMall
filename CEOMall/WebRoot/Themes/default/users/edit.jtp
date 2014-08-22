@@ -1,0 +1,32 @@
+<#assign act=RequestParameters['act']!"1"/>
+<#if act="modify">
+	<#assign path="users.jtp">
+	<#include path>
+</#if>
+<@req2json name="params" scope="request" />
+<@bean ref="userService" fun="toModify" params="&params";map>
+<form action="edit.shtml?act=modify" method="post">
+	<table border=1px cellspacing=0 cellpading=0 style="text-align:center">
+		<tr>
+			<td>user id</td>
+			<td>user name</td>
+			<td>user emall</td>
+			<td>user roleid</td>
+			<td>user theme</td>
+			<td>operation</td>
+		</tr>
+
+	<tr>
+	<@req2json name="params" scope="request" />
+			<@bean ref="userService" fun="modify" params="&params";map />
+			<td><input name="user_id" value="${map.user_id!}"></td>
+			<td><input name="user_name" value="${map.user_name!}"></td>
+			<td><input name="user_email" value="${map.user_email!}"></td>
+			<td><input name="role_id" value="${map.role_id!}"></td>
+			<td><input name="theme_name" value="${map.theme_name!}"></td>
+		<td>
+		<input type="submit" name="更新">
+	</tr>
+</table>
+</form>
+</@bean>

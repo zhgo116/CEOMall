@@ -15,7 +15,7 @@ import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateException;
 import freemarker.template.WrappingTemplateModel;
 
-@Tag(name = "bean")
+@Tag("bean")
 public class BeanTag extends AbstractSupperTag {
 
 	@Override
@@ -31,10 +31,10 @@ public class BeanTag extends AbstractSupperTag {
 			List<Object> args = new LinkedList<Object>();
 			;
 			if (null == params) {
-				// Ã»ÓÐ²ÎÊý
+				// Ã»ï¿½Ð²ï¿½ï¿½ï¿½
 				method = ReflationUtils.getMethod(bean.getClass(), fun);
 			} else if (Assert.notEmpty(params)) {
-				// ÓÐ²ÎÊý
+				// ï¿½Ð²ï¿½ï¿½ï¿½
 				method = checkMethod(bean.getClass(), fun, params, args);
 			}
 			if (null == method)
@@ -78,7 +78,10 @@ public class BeanTag extends AbstractSupperTag {
 	}
 
 	protected Object getValue(String name, Class<?> clazz) {
-		Object result = CmsWebUtils.getRequest().getAttribute(name);
+		Object result = CmsWebUtils.getRequest().getParameter(name);
+		if (null != result && null != (result = convert(clazz, (String) result)))
+			return result;
+		result = CmsWebUtils.getRequest().getAttribute(name);
 		if (null != result && clazz.isInstance(result))
 			return result;
 		result = CmsWebUtils.getSession().getAttribute(name);
@@ -108,6 +111,8 @@ public class BeanTag extends AbstractSupperTag {
 			clazz = Boolean.class;
 		else if (clazz == char.class || clazz == Character.class)
 			clazz = Character.class;
+		else if (clazz == short.class || clazz == Short.class)
+			clazz = Short.class;
 		else if (clazz == String.class)
 			return value;
 		else

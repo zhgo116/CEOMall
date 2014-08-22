@@ -1,5 +1,102 @@
-用户信息:${msg}
+<html>
+<meta charset="utf-8">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+    .STYLE1 {
+	font-family: "宋体";
+	font-weight: bold;
+	color: #CCCC00;
+	text-align:center;
+     }
+    </style>
+    </head>
 
-<br/>
+   
+	<body>
+	
+	<form action="insertuser.shtml" method="POST">
+		<table>
+			<tr>
+				<td>username:</td>
+				<td><input type="text" name="user_name" /></td>
+			</tr>
 
-修改用户信息:
+			<tr>
+				<td>password:</td>
+				<td><input type="text" name="user_pass" /></td>
+			</tr>
+
+			<tr>
+				<td>mail:</td>
+				<td><input type="text" name="user_email" /></td>
+			</tr>
+			<tr>
+				<td>theme</td>
+				<td><input type="text" name="theme_name" /></td>
+				<@bean ref="authorityService" fun="list" params="2" ;list>
+					<#list list as item >
+						<#if item.role_name == "会员角色" >
+						<input type="hidden" name="role_id" value="${item.role_id}"/>
+						</#if>
+					</#list>
+				</@bean>
+			</tr>
+			
+			<tr>
+				<td><input type="submit" value="submit" /></td>
+				<td><input type="reset" value="reset" /></td>
+			</tr>
+		</table>
+	</form>
+	
+	
+	
+	<form action="login.shtml" method="POST">
+		<table>
+			<tr>
+				<td>username:</td>
+				<td><input type="text" name="user_name" /></td>
+			</tr>
+
+			<tr>
+				<td>password:</td>
+				<td><input type="text" name="user_pass" /></td>
+			</tr>
+				<tr>
+				<td><input type="submit" value="submit" /></td>
+				<td><input type="reset" value="reset" /></td>
+			</tr>
+		</table>
+	</form>
+	
+	<table border="1" style="text-align:center;">
+		<tr>
+				<td>ID</td>
+				<td>username</td>
+				<td>email</td>
+				<td>desc</td>
+				<td>role_id</td>
+				<td>operation</td>
+		</tr>
+		<#if users?if_exists >
+			<#list users as user>
+				</tr>
+				
+					<td>${user.user_id!}</td>
+					<td>${user.user_name!}</td>
+					<td>${user.user_email!}</td>
+					<td>${user.desc!}</td>
+					<td>${user.role_id!}</td>
+					<td><a href="tomodify.shtml?id=${user.user_id!}">update</a> 
+					<a href="todelete.shtml?id=${user.user_id!}">delete</a>
+					<a href="userdesc.shtml?user_id=${user.user_id!}">userdesc</a>
+					</td>
+				</tr>
+			</#list>
+		</#if>
+	</table>
+	<a href="index.shtml">返回</a>
+	</body>
+</html>
+

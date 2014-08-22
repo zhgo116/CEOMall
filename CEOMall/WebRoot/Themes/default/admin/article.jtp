@@ -1,0 +1,116 @@
+<a href="../">HOME</a><br/>
+<#assign act=RequestParameters["act"]!"list" />
+act:${act}<br/><br/>
+
+<#if act=="addcat" >
+	添加分类:${RequestParameters["cat_name"]!}<br/>
+	<@req2json name="params" scope="request" />
+	<#--${Request["params"]};-->
+	<@bean ref="articleService" fun="addCat" params="&params" />
+<#elseif act="addarticle" >
+	添加文章:${RequestParameters["title"]!}<br/>
+	<@req2json name="params" scope="request" />
+	<@bean ref="articleService" fun="addArticle" params="&params" />
+<#elseif act="delcat" >
+	删除分类:${RequestParameters["id"]!}<br/>
+	<@bean ref="articleService" fun="delCat" params="&id" />
+<#elseif act="delarticle" >
+	删除文章:${RequestParameters["id"]!}<br/>
+	<@bean ref="articleService" fun="delArticle" params="&id" />
+</#if>
+<br/>
+<br/>
+
+
+添加分类
+<form method="post" action="article.shtml?act=addcat">
+	<input type="text" name="cat_name" value="分类名称" onfocus="this.value='';"/><br/>
+	<input type="text" name="cat_parent_id" value="父分类" onfocus="this.value='';"/><br/>
+	<input type="text" name="cat_desc" value="描述" onfocus="this.value='';"/><br/>
+	<input type="submit" value="submit" />
+</form>
+<br/>
+添加文章
+<form method="post" action="article.shtml?act=addarticle">
+	<input type="text" name="title" value="文章名称" onfocus="this.value='';"/><br/>
+	<input type="text" name="cat_id" value="分类" onfocus="this.value='';"/><br/>
+	<input type="text" name="author" value="作者" onfocus="this.value='';"/><br/>
+	<input type="text" name="author_email" value="作者邮箱" onfocus="this.value='';"/><br/>
+	<input type="text" name="article_desc" value="描述" onfocus="this.value='';"/><br/>
+	<textarea name="content" onfocus="this.value='';">内容
+	</textarea><br/>
+	<input type="submit" value="submit" />
+</form>
+<br/>
+<br/>
+
+
+<@bean ref="articleService" fun="catsList";list>
+分类:size:${list?size}<br/>
+<table border="1" style="text-align:center">
+	<tr>
+		<th>cat_id</th>
+		<th>cat_name</th>
+		<th>cat_parent_id</th>
+		<th>cat_time</th>
+		<th>cat_desc</th>
+		<th>cat_state</th>
+		<th>user_id</th>
+		<th>opration</th>
+	</tr>
+	<#list list as item>
+		<tr>
+			<td>${item.cat_id!}</td>
+			<td>${item.cat_name!}</td>
+			<td>${item.cat_parent_id!}</td>
+			<td>${item.cat_time!}</td>
+			<td>${item.cat_desc!}</td>
+			<td>${item.cat_state!}</td>
+			<td>${item.user_id!}</td>
+			<td><a href="./article.shtml?act=delcat&id=${item.cat_id!}">del</a></td>
+		</tr>
+	</#list>
+</table>
+</@bean>
+<br/>
+<br/>
+
+<@bean ref="articleService" fun="articleList";list>
+文章:size:${list?size}<br/>
+<table border="1" style="text-align:center;">
+	<tr>
+		<th>article_id</th>
+		<th>title</th>
+		<th>author</th>
+		<th>author_email</th>
+		<th>article_time</th>
+		<th>cat_id</th>
+		<th>article_state</th>
+		<th>article_desc</th>
+		<th>content</th>
+		<th>detail</th>
+		<th>opration</th>
+	</tr>
+	<#list list as item>
+		<tr>
+			<td>${item.article_id!}</td>
+			<td>${item.title!}</td>
+			<td>${item.author!}</td>
+			<td>${item.author_email!}</td>
+			<td>${item.article_time!}</td>
+			<td>${item.cat_id!}</td>
+			<td>${item.article_state!}</td>
+			<td>${item.article_desc!}</td>
+			<td>${item.content!}</td>
+			<td><a href="../article.shtml?id=${item.article_id}">dettail</a></td>
+			<td><a href="./article.shtml?act=delarticle&id=${item.article_id}">del</a></td>
+		</tr>
+	</#list>
+</table>
+</@bean>
+<br/>
+<br/>
+
+
+
+

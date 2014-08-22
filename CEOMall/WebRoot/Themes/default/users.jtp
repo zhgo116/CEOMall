@@ -1,0 +1,16 @@
+
+<#include "head.jtp" >
+
+<#assign act=RequestParameters['act']!"list" >
+<a href="./users.shtml?act=list">查询用户</a>
+<#if act == "list">
+	<#assign path="users/list.jtp">
+<#elseif act == "edit" >
+	<#assign path="users/edit.jtp">	
+</#if>
+
+<#include path >
+<#include "foot.jtp" >
+<br/>
+
+

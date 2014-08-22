@@ -22,7 +22,7 @@ public class CmsAction {
 		if(!(new File(filePath).exists())){
 			Log4jUtils.info(String.format("%s is not found", filePath));
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			return "404";
+			return "/404";
 		}
 		return uri;
 	}

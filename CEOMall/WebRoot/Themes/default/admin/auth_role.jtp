@@ -1,0 +1,31 @@
+<a href="list.shtml">back</a><br/>
+role_id:${RequestParameters["role_id"]}<br/>
+
+<@bean ref="authorityService" fun="list" params="1" ;list>
+	<@bean ref="authorityService" fun="queryAuthRole" params="&role_id" ;selectlist>
+		权限-角色分配:total:${list?size},selected:${selectlist?size}<br/>
+		<table border="1" style="text-align:center">
+			<tr>
+				<th>auth_id</th>
+				<th>auth_name</th>
+				<th>auth_desc</th>
+				<th>group_id</th>
+				<th>group_count</th>	
+				<th>is selected</th>		
+				<th>check</th>		
+			</tr>
+			<#list list as item>
+				<#assign isSel=selectlist?seq_contains(item.auth_id) />
+				<tr>
+					<td>${item.auth_id!}</td>
+					<td>${item.auth_name!}</td>
+					<td>${item.auth_desc!}</td>
+					<td>${item.group_id!}</td>
+					<td>${item.group_name!}</td>
+					<td>${isSel?string("yes","no")}</td>
+					<td><a href="role_edit.shtml?act=role_auth&role_id=${RequestParameters['role_id']}&auth_id=${item.auth_id}&isSel=${isSel?string("y","n")}">${isSel?string("disallow","allow")}</a></td>
+				</tr>
+			</#list>
+		</table>
+	</@bean>
+</@bean>

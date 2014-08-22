@@ -1,0 +1,27 @@
+
+<@bean ref="userService" fun="query1";map>
+用户数量:${map?size!}
+<br/>
+<table border=1px cellspacing=0 cellpading=0 style="text-align:center">
+<tr>
+			<td>user id</td>
+			<td>user name</td>
+			<td>user emall</td>
+			<td>user roleid</td>
+			<td>user theme</td>
+			<td>operation</td>
+</tr>
+<#list map as value>
+	<tr>
+		<td>${value.user_id!}</td>
+		<td>${value.user_name!}</td>
+		<td>${value.user_email!}</td>
+		<td>${value.role_id!}</td>
+		<td>${value.theme_name!}</td>
+		<td><a href="">删除</a>
+		<a href="./users.shtml?act=edit&user_id=${value.user_id}">修改</a>
+		<a href="">增加</a></td>
+	</tr>	
+</#list>
+</table>
+</@bean>

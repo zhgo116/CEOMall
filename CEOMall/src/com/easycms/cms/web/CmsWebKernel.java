@@ -18,6 +18,7 @@ import com.easycms.cms.utils.Log4jUtils;
 @ComponentScan("com.easycms.cms.web")
 public class CmsWebKernel{
 
+	
 	@Bean
 	public FreeMarkerConfigurer freeMarkerConfigurer() {
 		FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();

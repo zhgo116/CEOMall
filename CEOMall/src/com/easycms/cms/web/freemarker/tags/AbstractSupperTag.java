@@ -3,15 +3,10 @@ package com.easycms.cms.web.freemarker.tags;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import com.easycms.cms.annotation.Tag;
 import com.easycms.cms.utils.Assert;
 import com.easycms.cms.utils.Log4jUtils;
-import com.easycms.cms.web.utils.CmsWebUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.SimpleScalar;
@@ -30,13 +25,7 @@ public abstract class AbstractSupperTag implements TemplateDirectiveModel {
 	protected TemplateModel[] vars;
 	protected TemplateDirectiveBody body;
 
-	@PostConstruct
-	public void initTag() {
-		Tag anno = this.getClass().getAnnotation(Tag.class);
-		if (anno == null || anno.name().isEmpty())
-			return;
-		CmsWebUtils.getBean(FreeMarkerConfigurer.class).getConfiguration().setSharedVariable(anno.name(), this);
-	}
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public final void execute(Environment arg0, Map arg1, TemplateModel[] arg2, TemplateDirectiveBody arg3) throws TemplateException, IOException {

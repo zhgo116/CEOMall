@@ -1,0 +1,25 @@
+<a href="../" >home</a><br/>
+<@bean ref="moduleService" fun="list" ;map>
+	模块:size:${map!?size}
+	<table border="1" style="text-align:center">
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>basepackage</th>
+			<th>state</th>
+			<th>desc</th>
+			<th>opration</th>
+		</tr>
+		<#list map?keys as key>
+			<#assign isEnable=map[key].state gt 1 />
+			<tr>
+				<td>${key_index}</td>
+				<td>${key}</td>
+				<td>${map[key].basePackage}</td>
+				<td>${map[key].state}</td>
+				<td>${map[key].desc}</td>
+				<td><a href="role_edit.shtml?act=cm&name=${key}&state=${isEnable?string('1','2')}">${isEnable?string('disenable','enable')}</a></td>
+			</tr>
+		</#list>
+	</table>
+</@bean>

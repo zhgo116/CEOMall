@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.util.FileUtil;
 
+import com.easycms.cms.IInterceptor;
 import com.easycms.cms.annotation.Interceptor;
-import com.easycms.cms.impl.AbstractInterceptor;
 import com.easycms.cms.utils.Log4jUtils;
 import com.easycms.cms.web.interceptor.CmsAppChainInterceptor;
 import com.easycms.cms.web.utils.CmsWebUtils;
 
 @Interceptor
-public class ResInterceptor extends AbstractInterceptor {
+public class ResInterceptor implements IInterceptor {
 
 	@Override
 	public void doFilter(HttpServletRequest request,

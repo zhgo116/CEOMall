@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,15 +155,15 @@ public class ReflationUtils {
 	 * @param name
 	 * @return
 	 */
-	public static Method[] getMethods(Class<?> clazz, String name) {
-		if (Assert.isNull(clazz, name) || Assert.isEmpty(name))
+	public static Method[] getMethods(Class<?> clazz, String regexName) {
+		if (Assert.isNull(clazz, regexName) || Assert.isEmpty(regexName))
 			return null;
 		Method[] methods = getMethods(clazz);
 		if (null == methods || methods.length == 0)
 			return null;
 		List<Method> list = new ArrayList<Method>();
 		for (Method method : methods) {
-			if (name.equals(method.getName()))
+			if (RegexUtils.isMatch(regexName, method.getName()))
 				list.add(method);
 		}
 		methods = new Method[list.size()];
@@ -214,4 +216,24 @@ public class ReflationUtils {
 		return null;
 	}
 
+	/**
+	 * 获取泛型
+	 * 
+	 * @param clazz
+	 * @param idx
+	 * @return
+	 */
+	public static Class<?> getGenericType(Class<?> clazz, int idx) {
+		if (null == clazz)
+			return null;
+		Type genericType = clazz.getGenericSuperclass();
+		if (genericType instanceof ParameterizedType) {
+			ParameterizedType type = (ParameterizedType) genericType;
+			int count = type.getActualTypeArguments().length;
+			if (idx < count)
+				return type.getActualTypeArguments()[idx].getClass();
+		}
+		return null;
+
+	}
 }

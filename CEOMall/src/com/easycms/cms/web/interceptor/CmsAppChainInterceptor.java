@@ -29,7 +29,7 @@ public class CmsAppChainInterceptor {
 	}
 	
 	public void doInterceptor() throws IOException, ServletException {
-		String beanName = CmsAppUtils.getBean(CmsAppInterceptorManager.class).getInterceptor(index++);
+		String beanName = CmsAppInterceptorCenter.defaultCenter().getInterceptor(index++);
 		if(beanName == null){
 			this.chain.doFilter(request, response);
 			CmsWebUtils.setRequest(null);

@@ -1,0 +1,16 @@
+<#if RequestParameters['add']?? >
+	<@bean ref="authorityService" fun="addRole"/>
+	<a href="list.shtml">back</a>
+</#if>
+<#if RequestParameters['del']?? >
+	<@bean ref="authorityService" fun="delRole" params="&id"/>
+	<a href="list.shtml">back</a>
+</#if>
+<#assign act=RequestParameters['act']!"list" />
+<#if act=="role_auth" >
+	<@bean ref="authorityService" fun="changeAuths"/>
+	<a href="list.shtml">back</a>
+<#elseif act=="cm" >
+	<@bean ref="moduleService" fun="changeModule"/>
+	<a href="../">back</a>
+</#if>

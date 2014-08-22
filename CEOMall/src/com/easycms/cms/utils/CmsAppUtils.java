@@ -30,6 +30,7 @@ public class CmsAppUtils {
 	}
 
 	public static void flushCache() {
+
 		Log4jUtils.info("FlushCache");
 		String path = String.format("%sres/cms.json", CmsAppUtils.class.getResource("/").getFile());
 		try {
@@ -43,6 +44,7 @@ public class CmsAppUtils {
 		Log4jUtils.info("FlushContext");
 		JSONObject json = cmsApp().getModules();
 		ArrayList<String> list = new ArrayList<String>();
+		list.add("com.easycms.cms.core");
 		for (Object obj : json.values()) {
 			JSONObject subJson = (JSONObject) obj;
 			if (subJson.getIntValue("state") == 2) {
@@ -69,12 +71,14 @@ public class CmsAppUtils {
 		subJson.put("basePackage", anno.basePackage().isEmpty() ? cls.getPackage().getName() : anno.basePackage());
 		subJson.put("desc", anno.desc());
 		cmsApp().getModules().put(name, subJson);
+		Log4jUtils.info(String.format("Module:%s is registered!", name));
 		changeModuleState(name, anno.state());
 		flushCache();
 	}
 
 	public static boolean changeModuleState(String name, int state) {
 		if (state > 0 && cmsApp().getModules().containsKey(name) && CmsAppUtils.getBean(name, IModule.class).install()) {
+			Log4jUtils.info(String.format("Module:%s install success!", name));
 			cmsApp().getModules().getJSONObject(name).put("state", state);
 			return true;
 		}
@@ -113,9 +117,5 @@ public class CmsAppUtils {
 		}
 		return null;
 	}
-
-	// public static Logger log(Class<?> cls) {
-	// return Logger.getLogger(cls);
-	// }
 
 }

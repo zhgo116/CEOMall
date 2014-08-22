@@ -1,0 +1,74 @@
+
+<meta charset="utf-8"/>
+<a href="../" >home</a><br/>
+<@bean ref="authorityService" fun="list" params="0" ;list>
+	权限组:size:${list?size!}<br/>
+	<table border="1" style="text-align:center">
+		<tr>
+			<th>group_id</th>
+			<th>group_name</th>
+			<th>group_desc</th>
+			<th>auth_count</th>			
+		</tr>
+		<#list list as item>
+			<tr>
+				<td>${item.group_id}</td>
+				<td>${item.group_name}</td>
+				<td>${item.group_desc!}</td>
+				<td>${item.auth_count!}</td>
+			</tr>
+		</#list>
+	</table>
+</@bean>
+
+<@bean ref="authorityService" fun="list" params="1" ;list>
+	权限:size:${list?size!}<br/>
+	<table border="1" style="text-align:center">
+		<tr>
+			<th>auth_id</th>
+			<th>auth_name</th>
+			<th>auth_desc</th>
+			<th>group_id</th>
+			<th>group_count</th>			
+		</tr>
+		<#list list as item>
+			<tr>
+				<td>${item.auth_id!}</td>
+				<td>${item.auth_name!}</td>
+				<td>${item.auth_desc!}</td>
+				<td>${item.group_id!}</td>
+				<td>${item.group_name!}</td>
+			</tr>
+		</#list>
+	</table>
+</@bean>
+
+<@bean ref="authorityService" fun="list" params="2" ;list>
+	角色:size:${list?size!}<br/>
+	<table border="1" style="text-align:center">
+		<tr>
+			<th>role_id</th>
+			<th>role_name</th>
+			<th>role_desc</th>
+			<th>role_time</th>		
+			<th>role_auth</th>		
+			<th>del_role</th>		
+		</tr>
+		<#list list as item>
+			<tr>
+				<td>${item.role_id!}</td>
+				<td>${item.role_name!}</td>
+				<td>${item.role_desc!}</td>
+				<td>${item.role_time!}</td>
+				<td><a href="auth_role.shtml?role_id=${item.role_id}">auth_role</a></td>			
+				<td><a href="role_edit.shtml?id=${item.role_id}&del=y">del_role</a></td>			
+			</tr>
+		</#list>
+	</table>
+</@bean>
+添加角色<br/>
+<form method="post" action="role_edit.shtml">
+	<input type="text" name="role_name" value="名称" onfocus="this.value='';"/><br/>
+	<input type="text" name="role_desc" value="描述" onfocus="this.value='';"/><br/>
+	<input type="submit" name="add" value="submit"  /><br/>
+</form>
