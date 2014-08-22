@@ -5,7 +5,7 @@
 </#if>
 <@req2json name="params" scope="request" />
 <@bean ref="userService" fun="toModify" params="&params";map>
-<form action="edit.shtml?act=modify" method="post">
+<form action="users.shtml?act=edit" method="post">
 	<table border=1px cellspacing=0 cellpading=0 style="text-align:center">
 		<tr>
 			<td>user id</td>
