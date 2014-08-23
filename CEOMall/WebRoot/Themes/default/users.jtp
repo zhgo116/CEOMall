@@ -9,6 +9,11 @@
 <#elseif act == "edit" >
 	act=${RequestParameters['act']!"edit"}
 	<#assign path="users/edit.jtp">	
+<#elseif act == "modify" >
+	<@req2json name="params" scope="request" />
+	<@bean ref="userService" fun="modify" params="&params";map />
+	act=${RequestParameters['act']!"modify"}
+	<#assign path="users/list.jtp">	
 </#if>
 
 <#include path >
