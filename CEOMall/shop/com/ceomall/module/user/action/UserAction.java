@@ -86,8 +86,8 @@ public class UserAction {
 	@RequestMapping("/todelete.shtml")
 	public String delete(ModelMap root) {
 		Log4jUtils.info("Edit user");
-		JSONObject json = CmsWebUtils.request2Json();
-		userService.delete(json);
+//		JSONObject json = CmsWebUtils.request2Json();
+//		userService.delete(json);
 		showUser(root);
 		return "user";
 	}

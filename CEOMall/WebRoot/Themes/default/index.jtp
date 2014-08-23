@@ -16,5 +16,5 @@ Welcome to CEOMall
 <a href="admin/list.shtml">Auth_Role</a><br/>
 <a href="admin/article.shtml">Article</a><br/>
 
-
+<a href="users.shtml">users</a><br/>
 </html>

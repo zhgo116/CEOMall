@@ -37,7 +37,7 @@ public interface IUserDao {
 	 * @param json
 	 * @return
 	 */
-	@Insert("insert into cms_user(user_name,user_pass,user_email,role_id,theme_name) values('${j.user_name}','${j.user_pass}','${j.user_email}',${j.role_id},'${j.theme_name}')")
+	@Insert("insert into cms_user(user_name,user_pass,user_email,is_admin,role_id,theme_name) values('${j.user_name}','${j.user_pass}','${j.user_email}',${j.is_admin},${j.role_id},'${j.theme_name}')")
 	void insert(@Param("j")JSONObject json);
 	
 	/***
@@ -46,8 +46,8 @@ public interface IUserDao {
 	 * @param json
 	 * @return
 	 */
-	@Delete("delete from cms_user where user_id=${j.id}")
-	void delete(@Param("j")JSONObject json);
+	@Delete("delete from cms_user where user_id=${json}")
+	void delete(int json);
 	
 	/***
 	 * 删除用户

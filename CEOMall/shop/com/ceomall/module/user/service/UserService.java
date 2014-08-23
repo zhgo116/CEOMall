@@ -36,10 +36,13 @@ public class UserService {
 	public void modify(JSONObject json) {
 		userDao.modify(json);
 	}
+	
 	public void insert(JSONObject json) {
 		userDao.insert(json);
 	}
-	public void delete(JSONObject json) {
+	
+	
+	public void delete(int json) {
 		userDao.delete(json);
 	}
 	

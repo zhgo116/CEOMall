@@ -1,22 +1,37 @@
-
+<a href="./">Home</a>
 <#include "head.jtp" >
 
 <#assign act=RequestParameters['act']!"list" >
 <a href="./users.shtml?act=list">查询用户</a>
+
 <#if act == "list">
-	act=${RequestParameters['act']!"list"}
+	用户列表 act=${RequestParameters['act']!"list"}
 	<#assign path="users/list.jtp">
 <#elseif act == "edit" >
-	act=${RequestParameters['act']!"edit"}
+	编辑用户 act=${RequestParameters['act']!"edit"}
 	<#assign path="users/edit.jtp">	
+	
 <#elseif act == "modify" >
 	<@req2json name="params" scope="request" />
 	<@bean ref="userService" fun="modify" params="&params";map />
-	act=${RequestParameters['act']!"modify"}
+	修改用户  act=${RequestParameters['act']!"modify"}
 	<#assign path="users/list.jtp">	
+	
+<#elseif act="adduser">
+		<@req2json name="params" scope="request" />
+		<@bean ref="userService" fun="insert" params="&params" />
+		添加用户  act=${RequestParameters['act']!"adduser"}
+		<#assign path="users/list.jtp">	
+		
+<#elseif act="delete">
+		<@req2json name="params" scope="request" />
+		<@bean ref="userService" fun="delete" params="&params" />
+		删除用户  act=${RequestParameters['act']!"delete"}
+		<#assign path="users/list.jtp">	
 </#if>
 
 <#include path >
+<#include "users/adduser.jtp" >
 <#include "foot.jtp" >
 <br/>
 
