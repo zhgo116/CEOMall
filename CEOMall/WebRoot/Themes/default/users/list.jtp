@@ -1,5 +1,8 @@
 <@bean ref="userService" fun="query1";map>
-用户数量:${map?size!}
+用户数量:
+<#if map??>
+${map?size!}
+</#if>
 <br/>
 <table border=1px cellspacing=0 cellpading=0 style="text-align:center">
 <tr>
@@ -10,6 +13,7 @@
 			<td>user theme</td>
 			<td>operation</td>
 </tr>
+<#if map??>
 <#list map as value>
 	<tr>
 		<td>${value.user_id!}</td>
@@ -17,9 +21,11 @@
 		<td>${value.user_email!}</td>
 		<td>${value.role_id!}</td>
 		<td>${value.theme_name!}</td>
-		<td><a href="./users.shtml?act=delete&user_id=${value.user_id}">删除</a>
-		<a href="./users.shtml?act=edit&user_id=${value.user_id}">修改</a>
+		<td><a href="./users.shtml?act=delete&user_id=${value.user_id}">delete</a>
+		<a href="./users.shtml?act=edit&user_id=${value.user_id}">edit</a>
+		<a href="./users.shtml?act=desc&user_id=${value.user_id}">desc</a>
 	</tr>	
 </#list>
+</#if>
 </table>
 </@bean>

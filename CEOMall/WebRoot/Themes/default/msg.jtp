@@ -1,3 +1,0 @@
-<@bran ref="authorityService" fun="list" params="0" ;result>
-	${result!size?}
-</@bean>

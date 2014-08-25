@@ -73,7 +73,6 @@ public class CmsAppUtils {
 		cmsApp().getModules().put(name, subJson);
 		Log4jUtils.info(String.format("Module:%s is registered!", name));
 		changeModuleState(name, anno.state());
-		flushCache();
 	}
 
 	public static boolean changeModuleState(String name, int state) {

@@ -38,6 +38,7 @@ public class KernelsPointcut {
 				result = String.format("%s%s", matcher.group(0), result);
 			}
 		}
+		System.out.println("requestAround:"+String.format("%s%s%s", CmsWebUtils.getTheme(), result, CmsWebUtils.getSuffixTemplate()));
 		return String.format("%s%s%s", CmsWebUtils.getTheme(), result, CmsWebUtils.getSuffixTemplate());
 	}
 
@@ -58,6 +59,7 @@ public class KernelsPointcut {
 			json.put("role_id", userJson.getIntValue("role_id"));
 			json.put("auth_name", anno.auth());
 			json.put("group_name", anno.group());
+			System.out.println("CmsWebUtils.getBean(IAuthorityDao.class):"+CmsWebUtils.getBean(IAuthorityDao.class));
 			if (CmsWebUtils.getBean(IAuthorityDao.class).checkAuthority(json) > 0)
 				return joinPoint.proceed();
 		}

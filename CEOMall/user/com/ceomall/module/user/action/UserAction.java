@@ -30,7 +30,6 @@ public class UserAction {
 		JSONObject userJson = userService.login(json);
 		if (userJson != null) {
 			CmsWebUtils.setNowUser(userJson);
-			System.out.println(CmsWebUtils.getNowUser());
 		}
 		return "index";
 	}
@@ -87,8 +86,8 @@ public class UserAction {
 	@RequestMapping("/todelete.shtml")
 	public String delete(ModelMap root) {
 		Log4jUtils.info("Edit user");
-		JSONObject json = CmsWebUtils.request2Json();
-		userService.delete(json);
+//		JSONObject json = CmsWebUtils.request2Json();
+//		userService.delete(json);
 		showUser(root);
 		return "user";
 	}
@@ -97,9 +96,9 @@ public class UserAction {
 	@RequestMapping("/userdesc.shtml")
 	public String userdesc(ModelMap root) {
 		Log4jUtils.info("Edit user");
-		JSONObject json = CmsWebUtils.request2Json();
-		List<JSONObject> data = userService.userdesc(json);
-		root.put("users", data);
+//		JSONObject json = CmsWebUtils.request2Json();
+//		List<JSONObject> data = userService.userdesc(json);
+//		root.put("users", data);
 		return "userdesc";
 	}
 

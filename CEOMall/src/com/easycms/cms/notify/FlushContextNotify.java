@@ -22,16 +22,20 @@ public class FlushContextNotify {
 	public void flushContext(int time) {
 		if (time == 0) {
 			Log4jUtils.info("The first load context, start scanning module!");
+			// 加载模块
 			Map<String, Object> beans = CmsAppUtils.cmsApp().getApplicationContext().getBeansWithAnnotation(Module.class);
 			if (null != beans && !beans.isEmpty()) {
 				for (Object obj : beans.values()) {
 					CmsAppUtils.rigsterModule(((IModule) obj).getClass());
 				}
+				CmsAppUtils.flushCache();
 			}
+			
 			Log4jUtils.info("The scanning module is completed, start loading module!");
 			CmsAppUtils.flushContext();
 		} else if (time > 0) {
 			Log4jUtils.info("Multiple load context, start loading interceptor!");
+			// 加载拦截器
 			Map<String, Object> beans = CmsAppUtils.cmsApp().getApplicationContext().getBeansWithAnnotation(Interceptor.class);
 			if (null != beans && !beans.isEmpty()) {
 				for (Object obj : beans.values()) {
@@ -40,7 +44,7 @@ public class FlushContextNotify {
 			}
 			// 加载TAG
 			beans = CmsAppUtils.cmsApp().getApplicationContext().getBeansWithAnnotation(Tag.class);
-			if(null != beans && !beans.isEmpty()){
+			if (null != beans && !beans.isEmpty()) {
 				for (Object obj : beans.values()) {
 					Tag anno = obj.getClass().getAnnotation(Tag.class);
 					try {
